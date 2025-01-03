@@ -16,11 +16,29 @@ The **Automated News Reporter** is a project that leverages AI to create realist
   - Integrates backgrounds seamlessly with AI videos.  
 
 - **Automation**:  
-  - Automatically uploads finished videos to platforms like YouTube, Twitter, and Instagram.  
+  - Automatically uploads finished videos to platforms like YouTube, Twitter, X and Instagram.  
 
-- **Legal Compliance**:  
-  - Revenue declared according to Belgian tax laws.  
-  - Flexible options for managing income personally or through a business entity.  
+### Types of Models:
+- **Generative Adversarial Networks (GANs)**:
+  - Generate realistic facial features and expressions for avatars.
+- **Facial Landmark Detection Models**:
+  - Identify and track key facial points to ensure accurate lip-syncing and expressions.
+- **Text-to-Speech (TTS) Models**:
+  - Convert written text into natural-sounding speech.
+- **Lip-Sync Models**:
+  - Align avatar lip movements with the generated speech for seamless synchronization.
+- **Video Synthesis Models**:
+  - Combine facial animations with background elements to produce cohesive videos.
+
+### Likely Implementations:
+- **Avatar Generation**:
+  - Utilize GAN-based architectures to create realistic avatars capable of displaying a wide range of expressions and movements.
+- **Facial Movement and Lip-Sync**:
+  - Employ facial landmark detection algorithms to map and animate facial features accurately, ensuring that lip movements correspond precisely with speech.
+- **Text-to-Speech (TTS)**:
+  - Implement advanced TTS systems that produce high-quality, natural-sounding speech in multiple languages and accents.
+- **Video Synthesis**:
+  - Integrate facial animations with various backgrounds and contexts, creating seamless and engaging videos.
 
 ---
 
