@@ -1,0 +1,87 @@
+{
+  "General Tech News": {
+    "description": "Stay up-to-date with the latest tech news from around the world.",
+    "sources": {
+      "TechCrunch": "https://techcrunch.com/latest/",
+      "The Verge": "https://www.theverge.com/",
+      "Wired": "https://www.wired.com/",
+      "Gizmodo": "https://gizmodo.com/",
+      "CNET": "https://www.cnet.com/",
+      "ZDNet": "https://www.zdnet.com/",
+      "Mashable Tech": "https://mashable.com/tech/",
+      "Engadget": "https://www.engadget.com/",
+      "Digital Trends": "https://www.digitaltrends.com/",
+      "TechRadar" : "https://www.techradar.com/"
+      }
+  },
+  "AI and Emerging Tech": {
+    "description": "Stay informed about the latest advancements in AI, machine learning, and other emerging technologies.",
+    "sources": {
+      "MIT Technology Review": "https://www.technologyreview.com/",
+      "VentureBeat AI": "https://venturebeat.com/category/ai/",
+      "AI News": "https://www.artificialintelligence-news.com/",
+      "Analytics India Magazine": "https://analyticsindiamag.com/"
+    }
+  },
+  "Big Tech-Specific": {
+    "description": "Get the latest news and updates from major tech companies like Apple, Google, Microsoft, Meta, and Tesla.",
+    "sources": {
+      "Apple Newsroom": "https://www.apple.com/newsroom/",
+      "Google AI Blog": "https://research.google/blog/",
+      "Microsoft Blog": "https://blogs.microsoft.com/",
+      "Meta Newsroom": "https://about.fb.com/news/"
+    }
+  },
+  "Developer-Focused": {
+    "description": "Stay informed about the latest tools, frameworks, and trends in software development.",
+    "sources": {
+      "Hacker News": "https://news.ycombinator.com/",
+      "Dev.to": "https://dev.to/",
+      "InfoWorld": "https://www.infoworld.com/"
+    }
+  },
+  "Cybersecurity": {
+    "description": "Stay informed about the latest cybersecurity threats, privacy issues, and data breaches.",
+    "sources": {
+      "Krebs on Security": "https://krebsonsecurity.com/",
+      "Dark Reading": "https://www.darkreading.com/"
+    }
+  },
+  "Space Tech": {
+      "description": "Stay up-to-date with the latest news and developments in space exploration and technology.",
+      "sources": {
+          "NASA News": "https://www.nasa.gov/",
+          "Space.com": "https://www.space.com/"
+      }    
+  },
+  "Blockchain and Cryptocurrency": {
+    "description": "Stay informed about the latest trends and developments in blockchain technology and cryptocurrencies.",
+    "sources": {
+      "CoinDesk": "https://www.coindesk.com/",
+      "Cointelegraph": "https://cointelegraph.com/",
+      "CryptoSlate": "https://cryptoslate.com/"
+    }
+  },
+  "Sustainable and Green Tech": {
+    "description": "Stay informed about the latest advancements in sustainable and green technologies.",
+    "sources": {
+      "CleanTechnica": "https://cleantechnica.com/",
+      "trellis": "https://trellis.net/"
+    }
+  },
+  "Health Tech": {
+    "description": "Stay informed about the latest advancements in health technology and digital health.",
+    "sources": {
+      "HealthTech Magazine": "https://healthtechmagazine.net/",
+      "Healthcare IT News": "https://www.healthcareitnews.com/"
+    }
+  },
+  "Smart Home and IoT": {
+    "description": "Stay informed about the latest trends and developments in smart home technology and the Internet of Things (IoT).",
+    "sources": {
+      "IoT For All": "https://www.iotforall.com/",
+      "HardwareZone": "https://www.hardwarezone.com.sg/home"
+    }
+  }
+  }
+  

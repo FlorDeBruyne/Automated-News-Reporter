@@ -1,0 +1,24 @@
+{
+    "General Tech News":{
+        "Techcrunch":{
+            "base_url": "https://techcrunch.com/latest",
+            "article":{
+                "selector": "wp-block-techcrunch-card wp-block-null",
+                "title": "loop-card__title",
+                "url_class": "loop-card__title-link",
+                "meta_data_class": "loop-card__meta"
+            }
+        }
+
+    },
+    "Big Tech-Specific":{
+        "Apple Newsroom":{
+            "base_url": "https://www.apple.com/newsroom",
+            "article":{
+                "selector": "listitem",
+                "title": "title_headline",
+                "url_class": "title title-list" 
+            }
+        }
+    }
+}
