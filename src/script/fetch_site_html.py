@@ -30,7 +30,6 @@ def main():
         print(f"File {json_file} not found!")
         return
 
-    # Loop through categories and sources
     for category, details in data.items():
         print(f"Processing category: {category}")
         sources = details.get("sources", {})
