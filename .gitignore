@@ -1,4 +1,4 @@
 **site_html/
 **.json
-
+**__pycache__/
 .env
