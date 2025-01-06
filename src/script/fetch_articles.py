@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-from db.mongo_instance import MongoInstance
+from src.db.mongo_instance import MongoInstance
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -15,6 +15,7 @@ class ArticleScraper():
         self.driver = webdriver.Chrome(self._get_driver())
         self.mongo = MongoInstance("automated_news_report")
         self.site_configs = {}
+        self.article_links = {}
 
 
     def _get_driver(self):
@@ -43,6 +44,9 @@ class ArticleScraper():
         
     
     def _get_article_data(self) -> None:
+        """
+        Extract article data from the site configurations
+        """
         try:
             site_configs = self._get_site_configs()
             
@@ -51,7 +55,7 @@ class ArticleScraper():
                 if self.topic in config:
                     topic_data = config[self.topic]
 
-                    # Iterate through the categories (General Tech News, Big Tech-Specific, companies)
+                    # Iterate through the categories 
                     for category, sites in topic_data.items():
                         if category not in self.site_configs:
                             self.site_configs[category] = {}
@@ -63,13 +67,19 @@ class ArticleScraper():
             print(f"An error occurred while getting article data: {e}")
     
     def _extract_article_content(self, soup):
+        """
+        Scrape article content from the article links and save to weaviate and mongodb databases
+        """
         article_content = ""
         article = soup.find_all("article")
         if article:
             article_content = article[0].get_text()
         return article_content
     
-    def scrape_article(self):
+    def scrape_article_links(self):
+        """
+        Collect article links from sources that are in the Mongodb collection
+        """
         self._get_article_data()
 
         for category, sites in self.site_configs.items():
@@ -80,13 +90,13 @@ class ArticleScraper():
                 self.driver.get(url)
                 time.sleep(100)
 
-                if site_data["cookies_button_id"]:
+                if "cookies_button_id" in site_data:
                     print("looking for cookies button")
                     cookies_button = self.driver.find_element(By.ID, site_data["cookies_button_id"])
                     cookies_button.click()
                     time.sleep(10)
                 
-                if site_data["cookies_button_class"]:
+                if "cookies_button_class" in site_data:
                     print("looking for cookies button")
                     cookies_button = self.driver.find_element(By.CLASS_NAME, site_data["cookies_button_class"])
                     cookies_button.click()
@@ -99,6 +109,12 @@ class ArticleScraper():
                         print(article[0].get_text())
                     else:
                         print("No article found")
+    
+    def scrape_articles(self):
+        """
+        Scrape articles from the article links and save to weaviate and mongodb databases
+        """
+        pass
     
        
 
