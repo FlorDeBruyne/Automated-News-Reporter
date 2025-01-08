@@ -43,19 +43,17 @@ class WeaviateInstance:
             "articleId": article_id
         }
 
-        self.client.collections.create(
+        uuid = self.client.data.insert(
             properties=data_properties,
-            name=article_id
+            uuid=article_id
         )
 
-        print(f"Article with ID '{article_id}' created.")
+        print(f"Article with ID '{uuid}' created.")
 
     def get_article_by_id(self, article_id):
         try:
-            article = self.client.get(
-                uuid=article_id,
-                class_name="Article",
-                include=["properties"]
+            article = self.client.query.fetch_object_by_id(
+                uuid=article_id
             )
             return article
         except Exception as e:
@@ -66,7 +64,7 @@ class WeaviateInstance:
         try:
             for key, value in kwargs.items():
                 if key in ["title", "content", "authors", "publicationDate", "category", "tags", "url", "views", "likes", "createdDate", "lastModifiedDate"]:
-                    self.client.collections.update(
+                    self.client.data.update(
                         uuid=article_id,
                         class_name="Article",
                         data={key: value}
@@ -77,12 +75,12 @@ class WeaviateInstance:
         except Exception as e:
             print(f"Error updating article: {e}")
 
-    def delete_article(self):
+    def delete_article_by_id(self, article_id):
         try:
-            self.client.collections.delete(
-                name="Article"
+            self.client.data.delete_by_id(
+                uuid=article_id
             )
-            print(f"Article collection is deleted")
+            print(f"Article is deleted")
         except Exception as e:
             print(f"Error deleting article: {e}")
     
