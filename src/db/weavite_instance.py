@@ -41,7 +41,7 @@ class WeaviateInstance:
         if not article_id:
             article_id = generate_uuid5(title + authors)
         created_date = datetime.datetime.now(datetime.timezone.utc).isoformat()
-
+        # ADD PUBLICATION COLLECTION AND MAKE A CONNECTION?
         data_properties = {
             "title": title,
             "content": content,
