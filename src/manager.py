@@ -11,10 +11,13 @@ def main():
 
         # scraper.driver.quit()
         # Initialize the Weaviate instance
+    
+
     weaviate_instance = WeaviateInstance()
     with open(os.path.join(os.getcwd(), "db/weavit_collection_schema.json")) as f:
         schema = json.load(f)
     # Create the class
+    weaviate_instance.delete_collection(collection_name="Article")
     weaviate_instance.create_collection(schema=schema, schema_name="Article")
 
     # # Create an article

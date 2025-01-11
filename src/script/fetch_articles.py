@@ -134,23 +134,6 @@ class ArticleScraper():
             self.logger.warning(f"Cookie button not found or not clickable for {site_data.get('base_url')}")
         except Exception as e:
             self.logger.error(f"Error handling cookies popup: {str(e)}")
-
-
-    # def _create_weaviate_object(self, article_data, category, source_url):
-    #     """
-    #     Transform article data into Weaviate object format
-    #     """
-    #     return {
-    #         "title": article_data.get("title", "No title"),
-    #         "content": article_data.get("body", "No content"),
-    #         "authors": [article_data.get("author", "Unknown")],
-    #         "publicationDate": article_data.get("publication_date", datetime.now().isoformat()),
-    #         "category": category,
-    #         "tags": [self.topic, category],
-    #         "url": source_url,
-    #         "scrapeDate": datetime.now().isoformat(),
-    #         "createdDate": datetime.now().isoformat()
-    #     }
         
     
     def _get_article_data(self) -> None:
