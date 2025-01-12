@@ -11,14 +11,12 @@ class WeaviateInstance:
     def __init__(self, collection_name: str = "Article"):
         self.client = self._initialize_client()
 
-        
-        # if not self.collection:
-        #     self._initialize_collection(collection_name=collection_name)
 
     def _initialize_client(self):
         return weaviate.connect_to_local(host=str(os.getenv("WEAVIATE_HOST")),
                                          port=int(os.getenv("WEAVIATE_PORT")),
                                          grpc_port=int(os.getenv("WEAVIATE_GRPC")))
+
 
     def _initialize_collection(self, collection_name):
         if collection_name not in self.client.collections.list_all():
@@ -26,6 +24,7 @@ class WeaviateInstance:
         else:
             self.collection = self.client.collections.get(collection_name)
             print(f"Collection with name '{collection_name}' is selected.")
+
 
     def create_collection(self, schema, schema_name):
         if schema_name not in self.client.collections.list_all():
@@ -38,29 +37,32 @@ class WeaviateInstance:
 
 
     def create_article(self, title, content, authors, publication_date, category=None, tags=None, url=None, scrape_date=None,  article_id=None):
-        if not article_id:
-            article_id = generate_uuid5(title + authors)
-        created_date = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        # ADD PUBLICATION COLLECTION AND MAKE A CONNECTION?
-        data_properties = {
-            "title": title,
-            "content": content,
-            "authors": authors,
-            "publicationDate": publication_date.isoformat(),
-            "category": category,
-            "tags": tags,
-            "url": url,
-            "scrapeDate": scrape_date,
-            "createdDate": created_date,
-            "articleId": article_id
-        }
+        try:
+            if not article_id:
+                article_id = generate_uuid5(title + authors)
+            created_date = datetime.datetime.now(datetime.timezone.utc).isoformat()
+            # ADD PUBLICATION COLLECTION AND MAKE A CONNECTION?
+            data_properties = {
+                "title": title,
+                "content": content,
+                "authors": authors,
+                "publicationDate": publication_date.isoformat(),
+                "category": category,
+                "tags": tags,
+                "url": url,
+                "scrapeDate": scrape_date,
+                "createdDate": created_date,
+                "articleId": article_id
+            }
 
-        uuid = self.collection.data.insert(
-            properties=data_properties,
-            uuid=article_id
-        )
+            uuid = self.collection.data.insert(
+                properties=data_properties,
+                uuid=article_id
+            )
+            print(f"Article with ID '{uuid}' created.")
+        except Exception as e:
+            print(f"Didn't create a new articel because of error: {str(e)}")
 
-        print(f"Article with ID '{uuid}' created.")
 
     def get_article_by_id(self, title, authors):
         article_id = generate_uuid5(title + authors)
@@ -73,6 +75,7 @@ class WeaviateInstance:
         except Exception as e:
             print(f"Error retrieving article: {e}")
             return None
+
 
     def update_article(self, article_id, **kwargs):
         try:
@@ -88,12 +91,14 @@ class WeaviateInstance:
         except Exception as e:
             print(f"Error updating article: {e}")
     
+
     def delete_collection(self, collection_name):
         try:
             self.client.collections.delete(collection_name)
             print(f"Collection with name {collection_name} is deleted")
         except Exception as e:
             print(f"Error deleting collection: {e}")
+
 
     def delete_article_by_id(self, article_id):
         try:
@@ -104,8 +109,6 @@ class WeaviateInstance:
         except Exception as e:
             print(f"Error deleting article: {e}")
     
-    def close_client(self):
-        return True if self.client.close() is None else False
     
     def list_all_articles(self):
         try:
@@ -114,6 +117,7 @@ class WeaviateInstance:
         except Exception as e:
             print(f"Error listing articles: {e}")
             return []
+
 
     def search_articles(self, query):
         try:
@@ -126,3 +130,7 @@ class WeaviateInstance:
         except Exception as e:
             print(f"Error searching articles: {e}")
             return []
+    
+
+    def close_client(self):
+        return True if self.client.close() is None else False
