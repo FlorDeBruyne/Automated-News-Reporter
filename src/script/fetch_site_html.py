@@ -22,7 +22,7 @@ def fetch_html(site_name, url, output_dir="site_html"):
         print(f"Error fetching {site_name}: {e}")
 
 def main():
-    json_file = "/home/flor/Workspace/automated_news_reporter/topics/technologie.json"
+    json_file = "src/topics/technologie.json"
     try:
         with open(json_file, "r", encoding="utf-8") as file:
             data = json.load(file)
