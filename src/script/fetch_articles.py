@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from bs4 import BeautifulSoup as soup
 from db.mongo_instance import MongoInstance
-from db.weavite_instance import WeaviateInstance
+from db.chromadb_instance import ChromadbInstance
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -36,7 +36,7 @@ class ArticleScraper():
         self.topic = topic
         self.driver = self._initialize_driver()
         self.mongo = MongoInstance("automated_news_report")
-        self.weaviate = WeaviateInstance()
+        self.chromadb = ChromadbInstance()
         self.site_configs = {}
         self.logger = self._setup_logger()
 
@@ -186,6 +186,7 @@ class ArticleScraper():
             # self.mongo.select_collection("raw_news_data")
             # self.mongo.insert_one(article_content)
 
+
             return article_content if article_content != "No body found" else None
 
 
@@ -216,7 +217,8 @@ class ArticleScraper():
                         if articles:
                             for article in articles:
                                 print(f"Article: {article_key}, {article_cont}")
-                                # print(article.text)
+                                # print(article_key)
+                                print("/n")
                                 if article.tag_name == "a" or article.tag_name == "link":
                                     print(article.get_attribute("href"))
 

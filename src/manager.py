@@ -5,11 +5,11 @@ import os
 import datetime
 
 def main():
-    # scraper = ArticleScraper("Technology")
-    # # scraper.scrape_article()
-    # print(scraper.scrape_article_links())
+    scraper = ArticleScraper("Technology")
+    # scraper.scrape_article()
+    print(scraper.scrape_articles())
 
-        # scraper.driver.quit()
+    scraper.driver.quit()
     
 
     try:

@@ -10,12 +10,12 @@ load_dotenv()
 
 
 class ChromadbInstance:
-    def __init__(self, collection_name: str = "Article"):
+    def __init__(self):
         self.client = self._initialize_client()
 
 
     def _initialize_client(self):
-        return chromadb.HttpClient(host=os.getenv("CHROMADB_HOST"),
+        return chromadb.AsyncHttpClient(host=os.getenv("CHROMADB_HOST"),
                                    port=os.getenv("CHROMADB_PORT"))
 
 
@@ -27,7 +27,7 @@ class ChromadbInstance:
         return embedding_functions.OllamaEmbeddingFunction(url=str(os.getenv("OLLAMA_URL")), model_name=str(os.getenv("EMBEDDING_MODEL")))
 
     
-    def  add_document(self, document: dict) -> None:
+    def add_document(self, document: dict) -> None:
         try:
             content = document["article_content"].value
             metdata = {key: value for key, value in document.items() if key != "article_content"}
