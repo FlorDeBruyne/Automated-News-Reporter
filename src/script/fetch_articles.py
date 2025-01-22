@@ -201,7 +201,7 @@ class ArticleScraper():
         self._get_article_data()
 
         for category, sites in self.site_configs.items():
-            print(f"Processing category: {category}, description: {sites["description"]}")
+            # print(f"Processing category: {category}, description: {sites["description"]}")
             for site_name, site_data in sites["sources"].items():
                 print(f"Processing site: {site_name}, site_date: {site_data}")
                 url = site_data["base_url"]
