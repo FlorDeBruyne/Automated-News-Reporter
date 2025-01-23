@@ -89,46 +89,52 @@ class ArticleScraper():
         return site_configs
     
 
-    def _save_to_weavaite(self, article: ArticleData) -> None:
-        """Save article data to Weaviate with proper object structure"""
+    def _save_to_chroma(self, article: ArticleData) -> None:
+        """Save article data to chroma with proper object structure"""
 
-        weaviate_object = {
+        chroma_object = {
             "title": article.title,
             "content": article.content,
-            "authors": [article.author] if article.author else ["Unknown"],
+            "authors": article.author if article.author else ["Unknown"],
             "publicationDate": article.publication_date,
             "category": article.category,
-            "tags": [self.topic, article.tags],
+            "tags": article.tags,
+            "topic": self.topic,
             "url": article.url,
             "source": article.source,
             "imageUrl": article.image_url,
-            "scrapeDate": datetime.now().isoformat(),
-            "createdDate": datetime.now().isoformat()
+            "scrapeDate": str(datetime.now().isoformat()),
+            "createdDate": str(datetime.now().isoformat())
         }
 
         try:
-            self.weaviate.add_article(weaviate_object)
-            self.logger.info(f"Article saved to Weaviate: {article.title}")
+            self.chromadb.add_document(chroma_object)
+            self.logger.info(f"Article saved to chroma: {article.title}")
         except Exception as e:
-            self.logger.error(f"An error occurred while saving article to Weaviate: {str(e)}")
+            self.logger.error(f"An error occurred while saving article to chroma: {str(e)}")
     
 
     def _handle_cookies(self, site_data):
         """Handle cookie consent popups with better error handling and waiting"""
         try:
-            wait = WebDriverWait(self.driver, 10)
+            print("Handling cookies")
+            wait = WebDriverWait(self.driver, 20)
             
             if "cookies_button_id" in site_data:
                 element = wait.until(
                     EC.element_to_be_clickable((By.ID, site_data["cookies_button_id"]))
                 )
                 element.click()
+                print("clicked the button")
                 
             elif "cookies_button_class" in site_data:
+                print(site_data["cookies_button_class"])
                 element = wait.until(
                     EC.element_to_be_clickable((By.CLASS_NAME, site_data["cookies_button_class"]))
                 )
                 element.click()
+                print("clicked the button")
+
                 
         except TimeoutException:
             self.logger.warning(f"Cookie button not found or not clickable for {site_data.get('base_url')}")
@@ -212,18 +218,27 @@ class ArticleScraper():
 
                 if "article_class" in site_data:
                     for article_key, article_cont in site_data["article_class"].items():
-                        print(f"Processing {article_key}")
-                        articles = self.driver.find_elements(By.CLASS_NAME, article_cont)
-                        if articles:
-                            for article in articles:
-                                print(f"Article: {article_key}, {article_cont}")
-                                # print(article_key)
-                                print("/n")
-                                if article.tag_name == "a" or article.tag_name == "link":
-                                    print(article.get_attribute("href"))
 
-                        else:
-                            print(f"No articles found: {article_key}, {article_cont}")
+                        wait = WebDriverWait(self.driver, 20, True)
+                        print(f"{article_cont}")
+
+                        element = wait.until(
+                            EC.presence_of_element_located((By.CLASS_NAME, article_cont))
+                        )
+
+                        if element:
+
+                            articles = self.driver.find_elements(By.CLASS_NAME, article_cont)
+                            if articles:
+                                for article in articles:
+                                    print(f"Article: {article_key}, {article_cont}")
+                                    # print(article_key)
+                                    print("\n")
+                                    if article.tag_name == "a" or article.tag_name == "link":
+                                        print(article.get_attribute("href"))
+
+                            else:
+                                print(f"No articles found: {article_key}, {article_cont}")
                 else:
                     continue
 
