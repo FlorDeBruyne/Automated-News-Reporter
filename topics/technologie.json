@@ -1,6 +1,5 @@
 {
   "General Tech News": {
-    "description": "Stay up-to-date with the latest tech news from around the world.",
     "sources": {
       "TechCrunch": "https://techcrunch.com/latest/",
       "The Verge": "https://www.theverge.com/",
